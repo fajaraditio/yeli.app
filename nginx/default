@@ -1,0 +1,67 @@
+server {
+    listen 80;
+    server_name localhost;
+
+    root /var/www/public;
+    index index.php index.html;
+
+    # Upload limit
+    client_max_body_size 20M;
+
+    # RATE LIMIT APPLY
+    limit_req zone=general burst=20 nodelay;
+    limit_conn conn_limit 20;
+
+    # BASIC SECURITY HEADERS
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    # BLOCK BAD USER-AGENTS
+    if ($http_user_agent ~* (sqlmap|nikto|nmap|dirbuster|crawler|spider|scrapy|curl|wget)) {
+        return 403;
+    }
+
+    # PROTECT FILE SENSITIF
+    location ~ /\.(env|git|htaccess|htpasswd) {
+        deny all;
+    }
+
+    location ~* /(storage|bootstrap/cache)/.*\.php$ {
+        deny all;
+    }
+
+    # STATIC CACHE
+    location ~* \.(jpg|jpeg|png|gif|ico|svg|webp)$ {
+        expires 30d;
+        access_log off;
+        add_header Cache-Control "public";
+    }
+
+    # ROUTING LARAVEL
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    
+    # PROTECT LOGIN / SYSTEM
+    location ~ ^/(system|login) {
+        limit_req zone=auth burst=5 nodelay;
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM
+    location ~ \.php$ {
+        fastcgi_pass app:9000;
+        fastcgi_index index.php;
+
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        fastcgi_param DOCUMENT_ROOT $realpath_root;
+
+        fastcgi_read_timeout 300;
+    }
+
+    # DROP CONNECTION FOR BAD REQUESTS
+    error_page 444 = @close;
+    location @close { return 444; }
+}
