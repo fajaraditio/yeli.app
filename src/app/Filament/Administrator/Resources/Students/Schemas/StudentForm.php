@@ -19,7 +19,7 @@ class StudentForm
                 Section::make('Student Information')
                     ->description('Fill in the student information below.')
                     ->schema([
-                        TextInput::make('name')
+                        TextInput::make('user.name')
                             ->label('Student Name')
                             ->placeholder('Example: Aditya Yeli Pratama')
                             ->prefixIcon(Phosphor::User)
@@ -52,15 +52,19 @@ class StudentForm
                 Section::make('Student Account Login')
                     ->description('Fill in the student information below.')
                     ->schema([
-                        TextInput::make('email')
+                        TextInput::make('user.email')
                             ->label('Student Email')
                             ->placeholder('Example: aditia@yeliapp.id')
                             ->prefixIcon(Phosphor::Envelope)
                             ->email()
                             ->required()
-                            ->unique('users', 'email', ignoreRecord: true),
+                            ->unique(
+                                table: 'users',
+                                column: 'email',
+                                ignorable: fn($record) => $record->user
+                            ),
 
-                        TextInput::make('password')
+                        TextInput::make('user.password')
                             ->label('Password')
                             ->placeholder('* * * * * * * *')
                             ->password()
@@ -73,7 +77,7 @@ class StudentForm
                                 : 'Minimum 8 characters.')
                             ->minLength(8),
 
-                        TextInput::make('password_confirmation')
+                        TextInput::make('user.password_confirmation')
                             ->label('Confirm Password')
                             ->placeholder('* * * * * * * *')
                             ->password()

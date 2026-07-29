@@ -33,6 +33,6 @@ class UserConstant
         self::Status_Pending => Phosphor::Clock,
         self::Status_Approved => Phosphor::CheckCircle,
         self::Status_Rejected => Phosphor::XCircle,
-        self::Status_Suspended => Phosphor::Stop,
+        self::Status_Suspended => Phosphor::Prohibit,
     ];
 }

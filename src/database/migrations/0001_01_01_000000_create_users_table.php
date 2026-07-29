@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('role')->default(UserConstant::Role_Student);
             $table->enum('status', UserConstant::Status_Enums)->default(UserConstant::Status_Pending);
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

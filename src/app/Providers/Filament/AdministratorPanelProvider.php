@@ -4,6 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Administrator\Pages\Dashboard;
 use App\Filament\Administrator\Pages\Login;
+use App\Filament\DiceBearAvatarsProvider;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -72,6 +73,7 @@ class AdministratorPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->defaultAvatarProvider(DiceBearAvatarsProvider::class)
             ->viteTheme('resources/css/filament/admin/theme.css');
     }
 }
