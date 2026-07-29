@@ -78,6 +78,7 @@ class LecturerPanelProvider extends PanelProvider
             ->plugins([
                 PhosphorIcons::make(),
             ])
+            ->databaseNotifications()
             ->defaultAvatarProvider(DiceBearAvatarsProvider::class)
             ->viteTheme('resources/css/filament/lecturer/theme.css');
     }

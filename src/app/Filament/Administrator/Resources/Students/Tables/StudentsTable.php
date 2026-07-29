@@ -74,7 +74,7 @@ class StudentsTable
                         ->modalHeading('Approve Student Account')
                         ->modalDescription('Are you sure you want to approve this student account?')
                         ->action(function ($record) {
-                            $record->user->update(['status' => UserConstant::Status_Pending]);
+                            $record->user->update(['status' => UserConstant::Status_Approved]);
                         })
                         ->visible(fn($record) => $record->user?->status === UserConstant::Status_Pending),
 

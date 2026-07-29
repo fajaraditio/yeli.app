@@ -77,6 +77,7 @@ class AdministratorPanelProvider extends PanelProvider
             ->plugins([
                 PhosphorIcons::make(),
             ])
+            ->databaseNotifications()
             ->defaultAvatarProvider(DiceBearAvatarsProvider::class)
             ->viteTheme('resources/css/filament/admin/theme.css');
     }
