@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Student\Pages\Login;
+use App\Filament\Student\Pages\Register;
+use App\Providers\Avatars\DiceBearAvatarsProvider;
+use Filafly\Icons\Phosphor\PhosphorIcons;
+use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -10,6 +15,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -26,10 +32,27 @@ class StudentPanelProvider extends PanelProvider
         return $panel
             ->id('student')
             ->path('student')
-            ->viteTheme('resources/css/filament/student/theme.css')
-            ->login()
+            ->login(Login::class)
+            ->registration(Register::class)
+            ->brandName('YELI App')
+            ->brandLogo(fn() => view('filament.brand.logo', ['panel' => $panel]))
+            ->brandLogoHeight('80px')
+            ->maxContentWidth(Width::Full)
+            ->font('Google Sans', provider: GoogleFontProvider::class)
             ->colors([
-                'primary' => Color::hex('#D4A017'),
+                'primary' => [
+                    50  => '#FAEFD7',
+                    100 => '#F9EACA',
+                    200 => '#F5DFAC',
+                    300 => '#F7D280',
+                    400 => '#F4C04E',
+                    500 => '#F0AD18',
+                    600 => '#CB900D',
+                    700 => '#A2730B',
+                    800 => '#7E5803',
+                    900 => '#593E02',
+                    950 => '#342401',
+                ],
             ])
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\Filament\Student\Resources')
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\Filament\Student\Pages')
@@ -55,6 +78,10 @@ class StudentPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugins([
+                PhosphorIcons::make(),
+            ])
+            ->defaultAvatarProvider(DiceBearAvatarsProvider::class)
             ->viteTheme('resources/css/filament/student/theme.css');
     }
 }

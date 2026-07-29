@@ -5,7 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Constants\UserConstant;
-use App\Filament\DiceBearAvatarsProvider;
+use App\Providers\Avatars\DiceBearAvatarsProvider;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;

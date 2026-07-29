@@ -2,6 +2,7 @@
 
 @source '../../../../app/Filament/Student/**/*';
 @source '../../../../resources/views/filament/student/**/*';
+@source '../../../../resources/views/filament/brand/**/*';
 
 .fi-sidebar-nav-groups {
     row-gap: 0.25rem;

@@ -4,7 +4,8 @@ namespace App\Providers\Filament;
 
 use App\Filament\Administrator\Pages\Dashboard;
 use App\Filament\Administrator\Pages\Login;
-use App\Filament\DiceBearAvatarsProvider;
+use App\Providers\Avatars\DiceBearAvatarsProvider;
+use Filafly\Icons\Phosphor\PhosphorIcons;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -30,7 +31,7 @@ class AdministratorPanelProvider extends PanelProvider
             ->path('administrator')
             ->login(Login::class)
             ->brandName('YELI App')
-            ->brandLogo(fn() => view('filament.administrator.logo', ['panel' => $panel]))
+            ->brandLogo(fn() => view('filament.brand.logo', ['panel' => $panel]))
             ->brandLogoHeight('80px')
             ->maxContentWidth(Width::Full)
             ->font('Google Sans', provider: GoogleFontProvider::class)
@@ -72,6 +73,9 @@ class AdministratorPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
+            ])
+            ->plugins([
+                PhosphorIcons::make(),
             ])
             ->defaultAvatarProvider(DiceBearAvatarsProvider::class)
             ->viteTheme('resources/css/filament/admin/theme.css');

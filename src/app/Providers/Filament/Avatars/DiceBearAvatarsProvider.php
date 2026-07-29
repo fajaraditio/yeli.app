@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Filament;
+namespace App\Providers\Avatars;
 
 use Filament\AvatarProviders\Contracts;
-use Filament\Facades\Filament;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 

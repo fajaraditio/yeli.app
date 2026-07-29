@@ -1,7 +1,8 @@
 @import '../../../../vendor/filament/filament/resources/css/theme.css';
 
 @source '../../../../app/Filament/Administrator/**/*';
-@source '../../../../resources/views/filament/administrator/**/*';
+@source '../../../../resources/views/filament/brand/**/*';
+@source '../../../../resources/views/filament/admin/**/*';
 
 .fi-sidebar-nav-groups {
     row-gap: 0.25rem;

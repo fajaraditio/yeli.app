@@ -2,6 +2,7 @@
 
 @source '../../../../app/Filament/Lecturer/**/*';
 @source '../../../../resources/views/filament/lecturer/**/*';
+@source '../../../../resources/views/filament/brand/**/*';
 
 .fi-sidebar-nav-groups {
     row-gap: 0.25rem;
