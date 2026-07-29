@@ -28,6 +28,7 @@ class UserSeeder extends Seeder
                 'email_verified_at' => now(),
                 'password'          => Hash::make('123123123'),
                 'role'              => UserConstant::Role_Admin,
+                'status'            => UserConstant::Status_Approved,
             ]
         );
     }
@@ -47,6 +48,7 @@ class UserSeeder extends Seeder
                     'email_verified_at' => now(),
                     'password'          => Hash::make('password'),
                     'role'              => UserConstant::Role_Lecturer,
+                    'status'            => UserConstant::Status_Approved,
                 ]
             );
         }
@@ -71,6 +73,7 @@ class UserSeeder extends Seeder
                     'email_verified_at' => now(),
                     'password'          => Hash::make('password'),
                     'role'              => UserConstant::Role_Student,
+                    'status'            => UserConstant::Status_Approved,
                 ]
             );
         }

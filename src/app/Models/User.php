@@ -42,6 +42,9 @@ class User extends Authenticatable implements FilamentUser
             'lecturer'      => $this->role === UserConstant::Role_Lecturer,
             'student'       => $this->role === UserConstant::Role_Student,
             default         => false,
-        };
+        } && in_array($this->status, [
+            UserConstant::Status_Pending,
+            UserConstant::Status_Approved
+        ]);
     }
 }

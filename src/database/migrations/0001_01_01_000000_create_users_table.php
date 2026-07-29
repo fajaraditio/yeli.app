@@ -19,6 +19,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('role')->default(UserConstant::Role_Student);
+            $table->enum('status', UserConstant::Status_Enums)->default(UserConstant::Status_Pending);
             $table->rememberToken();
             $table->timestamps();
         });
