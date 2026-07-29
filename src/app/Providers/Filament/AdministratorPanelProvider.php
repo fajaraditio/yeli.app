@@ -4,7 +4,7 @@ namespace App\Providers\Filament;
 
 use App\Filament\Administrator\Pages\Dashboard;
 use App\Filament\Administrator\Pages\Login;
-use App\Providers\Avatars\DiceBearAvatarsProvider;
+use App\Providers\Filament\Avatars\DiceBearAvatarsProvider;
 use Filafly\Icons\Phosphor\PhosphorIcons;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;

@@ -3,11 +3,9 @@
 namespace App\Filament\Student\Pages;
 
 use App\Models\Classroom;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
-use Filament\Auth\Events\Registered;
-use Filament\Auth\Http\Responses\RegistrationResponse;
+use App\Models\Student;
 use Filament\Auth\Pages\Register as BaseRegister;
-use Filament\Facades\Filament;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
@@ -17,6 +15,7 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
 use Override;
+use SensitiveParameter;
 
 class Register extends BaseRegister
 {
@@ -70,6 +69,7 @@ class Register extends BaseRegister
             ->options(Classroom::all()->pluck('name', 'id'))
             ->searchable()
             ->selectablePlaceholder(false)
+            ->live()
             ->native(false);
     }
 
@@ -110,48 +110,19 @@ class Register extends BaseRegister
     }
 
     #[Override]
-    public function register(): ?RegistrationResponse
+    protected function handleRegistration(#[SensitiveParameter] array $data): Model
     {
-        try {
-            $this->rateLimit(2);
-        } catch (TooManyRequestsException $exception) {
-            $this->getRateLimitedNotification($exception)?->send();
+        $student    = $data['student'];
+        $classroom  = Classroom::find($student['classroom_id']);
 
-            return null;
-        }
+        unset($data['student']);
 
-        if ($this->isRegisterRateLimited($this->data['email'] ?? '')) {
-            return null;
-        }
+        $user = $this->getUserModel()::create($data);
 
-        $user = $this->wrapInDatabaseTransaction(function (): Model {
-            $this->callHook('beforeValidate');
+        $student['classroom_name'] = $classroom->name;
 
-            $data = $this->form->getState();
+        Student::create(array_merge(['user_id' => $user->id], $student));
 
-            $this->callHook('afterValidate');
-
-            $data = $this->mutateFormDataBeforeRegister($data);
-
-            $this->callHook('beforeRegister');
-
-            $user = $this->handleRegistration($data);
-
-            $this->form->model($user)->saveRelationships();
-
-            $this->callHook('afterRegister');
-
-            return $user;
-        });
-
-        event(new Registered($user));
-
-        $this->sendEmailVerificationNotification($user);
-
-        Filament::auth()->login($user);
-
-        session()->regenerate();
-
-        return app(RegistrationResponse::class);
+        return $user;
     }
 }

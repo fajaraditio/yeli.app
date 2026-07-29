@@ -71,7 +71,7 @@ class LecturersTable
                         ->action(function ($record) {
                             $record->user->update(['status' => UserConstant::Status_Pending]);
                         })
-                        ->visible(fn($record) => $record->user->status === UserConstant::Status_Pending),
+                        ->visible(fn($record) => $record->user?->status === UserConstant::Status_Pending),
 
                     Action::make('reject')
                         ->label('Reject')
@@ -83,7 +83,7 @@ class LecturersTable
                         ->action(function ($record) {
                             $record->user->update(['status' => UserConstant::Status_Rejected]);
                         })
-                        ->visible(fn($record) => $record->user->status === UserConstant::Status_Pending),
+                        ->visible(fn($record) => $record->user?->status === UserConstant::Status_Pending),
 
                     Action::make('suspend')
                         ->label('Suspend')
@@ -95,7 +95,7 @@ class LecturersTable
                         ->action(function ($record) {
                             $record->user->update(['status' => UserConstant::Status_Suspended]);
                         })
-                        ->visible(fn($record) => $record->user->status === UserConstant::Status_Approved),
+                        ->visible(fn($record) => $record->user?->status === UserConstant::Status_Approved),
 
                     Action::make('unsuspend')
                         ->label('Unsuspend')
@@ -107,7 +107,7 @@ class LecturersTable
                         ->action(function ($record) {
                             $record->user->update(['status' => UserConstant::Status_Approved]);
                         })
-                        ->visible(fn($record) => $record->user->status === UserConstant::Status_Suspended),
+                        ->visible(fn($record) => $record->user?->status === UserConstant::Status_Suspended),
                 ]),
             ])
             ->toolbarActions([

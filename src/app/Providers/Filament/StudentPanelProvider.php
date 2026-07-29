@@ -2,22 +2,19 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Student\Pages\Dashboard;
 use App\Filament\Student\Pages\Login;
 use App\Filament\Student\Pages\Register;
-use App\Providers\Avatars\DiceBearAvatarsProvider;
+use App\Providers\Filament\Avatars\DiceBearAvatarsProvider;
 use Filafly\Icons\Phosphor\PhosphorIcons;
 use Filament\FontProviders\GoogleFontProvider;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
-use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -54,6 +51,7 @@ class StudentPanelProvider extends PanelProvider
                     950 => '#342401',
                 ],
             ])
+            ->topNavigation()
             ->discoverResources(in: app_path('Filament/Student/Resources'), for: 'App\Filament\Student\Resources')
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\Filament\Student\Pages')
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\Filament\Student\Widgets')
@@ -61,8 +59,7 @@ class StudentPanelProvider extends PanelProvider
                 Dashboard::class,
             ])
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                //
             ])
             ->middleware([
                 EncryptCookies::class,

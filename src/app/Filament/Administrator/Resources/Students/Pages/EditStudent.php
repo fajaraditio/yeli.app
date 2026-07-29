@@ -3,6 +3,7 @@
 namespace App\Filament\Administrator\Resources\Students\Pages;
 
 use App\Filament\Administrator\Resources\Students\StudentResource;
+use App\Models\Classroom;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
@@ -34,8 +35,11 @@ class EditStudent extends EditRecord
     {
         $user = $data['user'];
 
-        unset($data['user']);
+        $classroom  = Classroom::find($data['classroom_id']);
 
+        $data['classroom_name'] = $classroom->name;
+
+        unset($data['user']);
         unset($user['password_confirmation']);
 
         $record->user()->update($user);

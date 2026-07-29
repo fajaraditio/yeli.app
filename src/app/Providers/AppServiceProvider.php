@@ -8,6 +8,7 @@ use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
@@ -49,6 +50,10 @@ class AppServiceProvider extends ServiceProvider
             $action
                 ->color('danger')
                 ->icon(Phosphor::Trash);
+        });
+
+        Table::configureUsing(function (Table $table) {
+            $table->defaultSort('id', 'desc');
         });
     }
 }

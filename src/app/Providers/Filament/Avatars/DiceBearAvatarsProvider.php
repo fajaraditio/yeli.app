@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers\Avatars;
+namespace App\Providers\Filament\Avatars;
 
 use Filament\AvatarProviders\Contracts;
 use Illuminate\Contracts\Auth\Authenticatable;
