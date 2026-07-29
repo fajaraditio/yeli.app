@@ -11,12 +11,15 @@ use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class ClassroomResource extends Resource
 {
     protected static ?string $model = Classroom::class;
 
     protected static string|BackedEnum|null $navigationIcon = Phosphor::Chalkboard;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Settings';
 
     protected static null|string $modelLabel = 'Class Room';
 

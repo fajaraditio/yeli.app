@@ -7,15 +7,6 @@
     row-gap: 0.25rem;
 }
 
-.fi-sidebar-nav {
-    background-color: white;
-}
-
-.fi-sidebar {
-    background-color: white;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
-}
-
 .fi-sidebar .fi-global-search-ctn {
     margin-inline: calc(var(--spacing) * 3);
     margin-top: calc(var(--spacing) * 3);
@@ -35,8 +26,8 @@
     font-weight: 600 !important;
 }
 
-.fi-sidebar-item:not(.fi-active)>.fi-sidebar-item-btn>.fi-icon {
-    color: var(--color-gray-900);
+.fi-dropdown-list-item.fi-color:not(.fi-disabled):not([disabled]):hover {
+    background-color: transparent;
 }
 
 .fi-btn {

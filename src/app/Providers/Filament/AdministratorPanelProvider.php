@@ -35,17 +35,17 @@ class AdministratorPanelProvider extends PanelProvider
             ->font('Google Sans', provider: GoogleFontProvider::class)
             ->colors([
                 'primary' => [
-                    50  => '#CAD1E3',
-                    100 => '#C2CADE',
-                    200 => '#AEB8D3',
-                    300 => '#91A1C8',
-                    400 => '#7085B8',
-                    500 => '#5168A2',
-                    600 => '#425585',
-                    700 => '#35446A',
-                    800 => '#253252',
-                    900 => '#1A233A',
-                    950 => '#0F1422',
+                    50  => '#798CBC',
+                    100 => '#7487B8',
+                    200 => '#657AB0',
+                    300 => '#4F6AA9',
+                    400 => '#445A91',
+                    500 => '#384A77',
+                    600 => '#2E3C62',
+                    700 => '#25304E',
+                    800 => '#19233C',
+                    900 => '#12192B',
+                    950 => '#0A0E19',
                 ],
             ])
             ->discoverResources(in: app_path('Filament/Administrator/Resources'), for: 'App\Filament\Administrator\Resources')
