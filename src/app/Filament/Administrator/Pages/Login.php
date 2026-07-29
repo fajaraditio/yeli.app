@@ -3,7 +3,6 @@
 namespace App\Filament\Administrator\Pages;
 
 use Filament\Auth\Pages\Login as BaseLogin;
-use Filament\Pages\Page;
 use Filament\Schemas\Components\Component;
 use Filament\Support\Enums\Width;
 use Illuminate\Contracts\Support\Htmlable;
