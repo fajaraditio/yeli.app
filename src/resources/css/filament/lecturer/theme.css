@@ -1,0 +1,51 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/Lecturer/**/*';
+@source '../../../../resources/views/filament/lecturer/**/*';
+
+.fi-sidebar-nav-groups {
+    row-gap: 0.25rem;
+}
+
+.fi-sidebar-nav {
+    background-color: white;
+}
+
+.fi-sidebar {
+    background-color: white;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.fi-sidebar .fi-global-search-ctn {
+    margin-inline: calc(var(--spacing) * 3);
+    margin-top: calc(var(--spacing) * 3);
+    margin-bottom: calc(var(--spacing));
+}
+
+.fi-ta-empty-state-heading {
+    @apply !text-sm;
+}
+
+.fi-sidebar-item-label {
+    color: var(--color-gray-900);
+}
+
+.fi-sidebar-group-label {
+    color: var(--color-primary-700);
+    font-weight: 600 !important;
+}
+
+.fi-sidebar-item:not(.fi-active)>.fi-sidebar-item-btn>.fi-icon {
+    color: var(--color-gray-900);
+}
+
+.fi-btn {
+    &:not(.fi-outlined) {
+        &.fi-color {
+            --bg: var(--color-600) !important;
+            --text: white !important;
+            --hover-bg: var(--color-500) !important;
+            --hover-text: white !important;
+        }
+    }
+}
