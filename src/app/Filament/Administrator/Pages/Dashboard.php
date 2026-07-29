@@ -2,10 +2,11 @@
 
 namespace App\Filament\Administrator\Pages;
 
+use BackedEnum;
+use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Pages\Dashboard as BaseDashboard;
-use Filament\Pages\Page;
 
 class Dashboard extends BaseDashboard
 {
-    //
+    protected static string|BackedEnum|null $navigationIcon = Phosphor::House;
 }
