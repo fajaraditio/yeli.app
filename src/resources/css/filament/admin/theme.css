@@ -3,6 +3,7 @@
 @source '../../../../app/Filament/Administrator/**/*';
 @source '../../../../resources/views/filament/brand/**/*';
 @source '../../../../resources/views/filament/admin/**/*';
+@source '../../../../resources/views/livewire/**/*';
 
 .fi-sidebar-nav-groups {
     row-gap: 0.25rem;
