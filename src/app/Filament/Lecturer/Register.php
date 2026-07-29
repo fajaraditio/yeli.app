@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Filament\Student\Pages;
+namespace App\Filament\Lecturer\Pages;
 
 use App\Models\Classroom;
-use App\Models\Student;
+use App\Models\Lecturer;
 use Filament\Auth\Pages\Register as BaseRegister;
-use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
@@ -28,7 +27,7 @@ class Register extends BaseRegister
     #[Override]
     public function getSubheading(): string|Htmlable|null
     {
-        return 'Hello 👋! Welcome to YELI — Your English Learning Interface. Ready to study comprehensively with us? Join with us';
+        return 'Hello 👋! Welcome to YELI — Your English Learning Interface. Ready to give teaching about English? Join with us';
     }
 
     #[Override]
@@ -47,12 +46,12 @@ class Register extends BaseRegister
 
     public function getCodeFormComponent(): Component
     {
-        return TextInput::make('student.code')
-            ->label('Student ID')
+        return TextInput::make('lecturer.code')
+            ->label('Lecturer ID')
             ->required()
             ->maxLength(255)
             ->placeholder('Example: 123456789')
-            ->unique(table: 'students', column: 'code')
+            ->unique(table: 'lecturers', column: 'code')
             ->autofocus();
     }
 
@@ -64,7 +63,7 @@ class Register extends BaseRegister
 
     public function getClassroomFormComponent(): Component
     {
-        return Select::make('student.classroom_id')
+        return Select::make('lecturer.classroom_id')
             ->label('Class Room')
             ->options(Classroom::all()->pluck('name', 'id'))
             ->searchable()
@@ -105,23 +104,20 @@ class Register extends BaseRegister
         return $schema
             ->components([
                 $this->getFormContentComponent(),
-                View::make('filament.student.hooks.register-link'),
+                View::make('filament.lecturer.hooks.register-link'),
             ]);
     }
 
     #[Override]
     protected function handleRegistration(#[SensitiveParameter] array $data): Model
     {
-        $student    = $data['student'];
-        $classroom  = Classroom::find($student['classroom_id']);
+        $lecturer    = $data['lecturer'];
 
-        unset($data['student']);
+        unset($data['lecturer']);
 
         $user = $this->getUserModel()::create($data);
 
-        $student['classroom_name'] = $classroom->name;
-
-        Student::create(array_merge(['user_id' => $user->id], $student));
+        Lecturer::create(array_merge(['user_id' => $user->id], $lecturer));
 
         return $user;
     }
