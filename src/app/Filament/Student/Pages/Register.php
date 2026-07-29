@@ -2,6 +2,7 @@
 
 namespace App\Filament\Student\Pages;
 
+use App\Constants\UserConstant;
 use App\Models\Classroom;
 use App\Models\Student;
 use Filament\Auth\Pages\Register as BaseRegister;
@@ -22,7 +23,7 @@ class Register extends BaseRegister
     #[Override]
     public function getHeading(): string|Htmlable|null
     {
-        return 'YELI App';
+        return 'YELI for Student';
     }
 
     #[Override]
@@ -114,6 +115,8 @@ class Register extends BaseRegister
     {
         $student    = $data['student'];
         $classroom  = Classroom::find($student['classroom_id']);
+
+        $data['role'] = UserConstant::Role_Student;
 
         unset($data['student']);
 

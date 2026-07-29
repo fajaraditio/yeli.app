@@ -15,7 +15,7 @@ class Login extends BaseLogin
     #[Override]
     public function getHeading(): string|Htmlable|null
     {
-        return 'YELI Lecturer';
+        return 'YELI for Lecturer';
     }
 
     #[Override]

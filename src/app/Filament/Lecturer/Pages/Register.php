@@ -2,6 +2,7 @@
 
 namespace App\Filament\Lecturer\Pages;
 
+use App\Constants\UserConstant;
 use App\Models\Classroom;
 use App\Models\Lecturer;
 use Filament\Auth\Pages\Register as BaseRegister;
@@ -21,7 +22,7 @@ class Register extends BaseRegister
     #[Override]
     public function getHeading(): string|Htmlable|null
     {
-        return 'YELI App';
+        return 'YELI for Lecturer';
     }
 
     #[Override]
@@ -41,7 +42,7 @@ class Register extends BaseRegister
     {
         return parent::getNameFormComponent()
             ->label('Full Name')
-            ->placeholder('Example: Robert Yeli');
+            ->placeholder('Example: Robert Yeli, Phd');
     }
 
     public function getCodeFormComponent(): Component
@@ -59,17 +60,6 @@ class Register extends BaseRegister
     public function getEmailFormComponent(): Component
     {
         return parent::getEmailFormComponent()->placeholder('Example: robert@yeliapp.id');
-    }
-
-    public function getClassroomFormComponent(): Component
-    {
-        return Select::make('lecturer.classroom_id')
-            ->label('Class Room')
-            ->options(Classroom::all()->pluck('name', 'id'))
-            ->searchable()
-            ->selectablePlaceholder(false)
-            ->live()
-            ->native(false);
     }
 
     #[Override]
@@ -92,7 +82,6 @@ class Register extends BaseRegister
                 $this->getNameFormComponent(),
                 $this->getCodeFormComponent(),
                 $this->getEmailFormComponent(),
-                $this->getClassroomFormComponent(),
                 $this->getPasswordFormComponent(),
                 $this->getPasswordConfirmationFormComponent(),
             ]);
@@ -112,6 +101,8 @@ class Register extends BaseRegister
     protected function handleRegistration(#[SensitiveParameter] array $data): Model
     {
         $lecturer    = $data['lecturer'];
+
+        $data['role'] = UserConstant::Role_Lecturer;
 
         unset($data['lecturer']);
 

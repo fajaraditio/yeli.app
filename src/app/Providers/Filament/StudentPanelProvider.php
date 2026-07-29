@@ -56,7 +56,7 @@ class StudentPanelProvider extends PanelProvider
             ->discoverPages(in: app_path('Filament/Student/Pages'), for: 'App\Filament\Student\Pages')
             ->discoverWidgets(in: app_path('Filament/Student/Widgets'), for: 'App\Filament\Student\Widgets')
             ->pages([
-                Dashboard::class,
+                //
             ])
             ->widgets([
                 //
