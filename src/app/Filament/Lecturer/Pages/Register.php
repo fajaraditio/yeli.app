@@ -9,8 +9,10 @@ use Filament\Auth\Pages\Register as BaseRegister;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\RenderHook;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\View;
@@ -92,8 +94,10 @@ class Register extends BaseRegister
     {
         return $schema
             ->components([
+                RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_BEFORE),
                 $this->getFormContentComponent(),
-                View::make('filament.lecturer.hooks.register-link'),
+                View::make('filament.lecturer.hooks.login-link'),
+                RenderHook::make(PanelsRenderHook::AUTH_REGISTER_FORM_AFTER),
             ]);
     }
 

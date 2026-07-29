@@ -4,8 +4,10 @@ namespace App\Filament\Student\Pages;
 
 use Filament\Auth\Pages\Login as BaseLogin;
 use Filament\Schemas\Components\Component;
+use Filament\Schemas\Components\RenderHook;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\Width;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\View;
 use Override;
@@ -47,8 +49,11 @@ class Login extends BaseLogin
     {
         return $schema
             ->components([
+                RenderHook::make(PanelsRenderHook::AUTH_LOGIN_FORM_BEFORE),
                 $this->getFormContentComponent(),
+                $this->getMultiFactorChallengeFormContentComponent(),
                 View::make('filament.student.hooks.register-link'),
+                RenderHook::make(PanelsRenderHook::AUTH_LOGIN_FORM_AFTER),
             ]);
     }
 }
