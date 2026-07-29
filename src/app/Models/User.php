@@ -42,6 +42,16 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return Attribute::make(get: fn(?string $value) => $value ? asset($value) : (new DiceBearAvatarsProvider)->get($this));
     }
 
+    public function student()
+    {
+        return $this->hasOne(Student::class);
+    }
+
+    public function lecturer()
+    {
+        return $this->hasOne(Lecturer::class);
+    }
+
     #[Override]
     public function canAccessPanel(Panel $panel): bool
     {
