@@ -1,5 +1,6 @@
 <?php
 
+use App\Constants\UnitConstant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->string('bloom_level')->nullable();
+            $table->string('status')->default(UnitConstant::Status_Draft);
             $table->timestamps();
         });
     }

@@ -6,9 +6,20 @@ use App\Constants\UnitConstant;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Override;
 
 class Unit extends Model
 {
+    #[Override]
+    protected static function booted()
+    {
+        static::creating(function (Unit $unit) {
+            $latest = static::max('order');
+
+            $unit->order = $latest ? $latest + 1 : 1;
+        });
+    }
+
     public function stages(): HasMany
     {
         return $this->hasMany(UnitStage::class);

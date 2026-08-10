@@ -42,3 +42,13 @@
         }
     }
 }
+.fi-badge  {
+    &:not(.fi-outlined) {
+        &.fi-color {
+            --bg: var(--color-600) !important;
+            --text: white !important;
+            --hover-bg: var(--color-500) !important;
+            --hover-text: white !important;
+        }
+    }
+}

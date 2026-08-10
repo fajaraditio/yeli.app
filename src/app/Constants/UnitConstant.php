@@ -2,6 +2,8 @@
 
 namespace App\Constants;
 
+use Filafly\Icons\Phosphor\Enums\Phosphor;
+
 class UnitConstant
 {
     public const Status_Draft     = 'Draft';
@@ -24,5 +26,24 @@ class UnitConstant
         self::BloomLevel_Evaluate,
         self::BloomLevel_EvaluateInfer,
         self::BloomLevel_Create,
+    ];
+
+    public const BloomLevel_Colors = [
+        self::BloomLevel_Analyze => 'primary',
+        self::BloomLevel_Evaluate => 'success',
+        self::BloomLevel_EvaluateInfer => 'info',
+        self::BloomLevel_Create => 'warning',
+    ];
+
+    public const Status_Colors = [
+        self::Status_Draft => 'gray',
+        self::Status_InReview => 'info',
+        self::Status_Published => 'success',
+    ];
+
+    public const Status_Icons = [
+        self::Status_Draft => Phosphor::Pencil,
+        self::Status_InReview => Phosphor::Clock,
+        self::Status_Published => Phosphor::CheckCircle,
     ];
 }
