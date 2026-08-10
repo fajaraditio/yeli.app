@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('read_at')->nullable();
             $table->timestamps();
 
-            $table->unique(['unit_learning_material_id', 'user_id']);
+            $table->unique(['unit_learning_material_id', 'user_id'], 'uk_unit_learning_material_1');
         });
     }
 
@@ -27,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('unit_learning_material_reads');
+        Schema::enableForeignKeyConstraints();
     }
 };
