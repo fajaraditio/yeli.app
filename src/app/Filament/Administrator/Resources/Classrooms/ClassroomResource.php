@@ -25,6 +25,8 @@ class ClassroomResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static null|int $navigationSort = 3;
+
     public static function form(Schema $schema): Schema
     {
         return ClassroomForm::configure($schema);

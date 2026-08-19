@@ -24,9 +24,11 @@ class BloomResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Settings';
 
-    protected static null|string $modelLabel = 'Bloom Level';
+    protected static null|string $modelLabel = 'Unit Bloom Level';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    protected static null|int $navigationSort = 1;
 
     public static function form(Schema $schema): Schema
     {

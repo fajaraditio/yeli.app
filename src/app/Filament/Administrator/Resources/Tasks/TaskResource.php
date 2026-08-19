@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Filament\Administrator\Resources\Tasks;
+
+use App\Filament\Administrator\Resources\Tasks\Pages\CreateTask;
+use App\Filament\Administrator\Resources\Tasks\Pages\EditTask;
+use App\Filament\Administrator\Resources\Tasks\Pages\ListTasks;
+use App\Filament\Administrator\Resources\Tasks\Schemas\TaskForm;
+use App\Filament\Administrator\Resources\Tasks\Tables\TasksTable;
+use App\Models\Task;
+use BackedEnum;
+use Filafly\Icons\Phosphor\Enums\Phosphor;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
+use Filament\Tables\Table;
+use UnitEnum;
+
+class TaskResource extends Resource
+{
+    protected static ?string $model = Task::class;
+
+    protected static string|BackedEnum|null $navigationIcon = Phosphor::CheckSquare;
+
+    protected static string|UnitEnum|null $navigationGroup = 'Settings';
+
+    protected static null|string $modelLabel = 'Task List';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static null|int $navigationSort = 1;
+
+    public static function form(Schema $schema): Schema
+    {
+        return TaskForm::configure($schema);
+    }
+
+    public static function table(Table $table): Table
+    {
+        return TasksTable::configure($table);
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
+    public static function getPages(): array
+    {
+        return [
+            'index' => ListTasks::route('/'),
+        ];
+    }
+}
