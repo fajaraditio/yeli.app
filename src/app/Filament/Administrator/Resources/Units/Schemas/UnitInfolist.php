@@ -7,6 +7,7 @@ use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Colors\Color;
 use Filament\Support\Enums\TextSize;
 
 class UnitInfolist
@@ -22,14 +23,12 @@ class UnitInfolist
                             ->label('Unit Title')
                             ->icon(Phosphor::BookOpenText),
 
-                        TextEntry::make('bloom_level')
-                            ->label('Bloom Level')
-                            ->icon(Phosphor::GraduationCap),
+                        TextEntry::make('bloom.name')
+                            ->label('Bloom')
+                            ->badge()
+                            ->color(fn($record) => Color::hex($record->bloom->color))
+                            ->icon(Phosphor::Intersect),
 
-                        TextEntry::make('description')
-                            ->label('Description')
-                            ->placeholder('-')
-                            ->columnSpanFull(),
 
                         TextEntry::make('status')
                             ->label('Status')
@@ -37,6 +36,11 @@ class UnitInfolist
                             ->badge()
                             ->icon(Phosphor::CheckCircle)
                             ->color(fn($state) => $state ? UnitConstant::Status_Colors[$state] : 'gray'),
+
+                        TextEntry::make('description')
+                            ->label('Description')
+                            ->placeholder('-')
+                            ->columnSpanFull(),
                     ])
                     ->columns(3)
                     ->columnSpanFull(),

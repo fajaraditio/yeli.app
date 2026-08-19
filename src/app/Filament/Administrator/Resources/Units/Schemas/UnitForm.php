@@ -26,13 +26,10 @@ class UnitForm
                             ->prefixIcon(Phosphor::BookOpenText)
                             ->required(),
 
-                        Select::make('bloom_level')
-                            ->label('Bloom Level')
-                            ->prefixIcon(Phosphor::GraduationCap)
-                            ->options(array_combine(
-                                UnitConstant::BloomLevel_Enums,
-                                UnitConstant::BloomLevel_Enums
-                            ))
+                        Select::make('bloom_id')
+                            ->relationship('bloom', titleAttribute: 'name')
+                            ->label('Bloom')
+                            ->prefixIcon(Phosphor::Intersect)
                             ->native(false),
 
                         Textarea::make('description')

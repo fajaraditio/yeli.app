@@ -16,25 +16,6 @@ class UnitConstant
         self::Status_Published,
     ];
 
-    public const BloomLevel_Analyze       = 'Analyze';
-    public const BloomLevel_Evaluate      = 'Evaluate';
-    public const BloomLevel_EvaluateInfer = 'Evaluate / Infer';
-    public const BloomLevel_Create        = 'Create';
-
-    public const BloomLevel_Enums = [
-        self::BloomLevel_Analyze,
-        self::BloomLevel_Evaluate,
-        self::BloomLevel_EvaluateInfer,
-        self::BloomLevel_Create,
-    ];
-
-    public const BloomLevel_Colors = [
-        self::BloomLevel_Analyze => 'primary',
-        self::BloomLevel_Evaluate => 'success',
-        self::BloomLevel_EvaluateInfer => 'info',
-        self::BloomLevel_Create => 'warning',
-    ];
-
     public const Status_Colors = [
         self::Status_Draft => 'gray',
         self::Status_InReview => 'info',

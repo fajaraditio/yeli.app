@@ -15,10 +15,12 @@ return new class extends Migration
         Schema::create('units', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('order')->unique();
+            $table->unsignedBigInteger('bloom_id')->nullable();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('bloom_level')->nullable();
             $table->string('status')->default(UnitConstant::Status_Draft);
+            $table->string('bloom_name')->nullable();
+            $table->string('bloom_color')->nullable();
             $table->timestamps();
         });
     }

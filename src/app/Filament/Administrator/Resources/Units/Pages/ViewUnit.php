@@ -5,6 +5,8 @@ namespace App\Filament\Administrator\Resources\Units\Pages;
 use App\Filament\Administrator\Resources\Units\UnitResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
+use Illuminate\Contracts\Support\Htmlable;
+use Override;
 
 class ViewUnit extends ViewRecord
 {
@@ -15,5 +17,11 @@ class ViewUnit extends ViewRecord
         return [
             EditAction::make(),
         ];
+    }
+
+    #[Override]
+    public function getHeading(): string|Htmlable|null
+    {
+        return $this->record->title;
     }
 }
