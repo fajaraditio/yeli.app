@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Filament\Administrator\Resources\Classrooms\Tables;
+namespace App\Filament\Administrator\Resources\Blooms\Tables;
 
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class ClassroomsTable
+class BloomsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('code')
-                    ->label('Classroom Code')
-                    ->searchable(),
+                ColorColumn::make('color'),
 
                 TextColumn::make('name')
-                    ->label('Classroom Name')
                     ->searchable(),
 
                 TextColumn::make('created_at')
@@ -37,7 +37,8 @@ class ClassroomsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->modalWidth(Width::Medium),
 
                 DeleteAction::make(),
             ])
