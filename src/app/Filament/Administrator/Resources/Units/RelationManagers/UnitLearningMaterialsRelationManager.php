@@ -17,12 +17,14 @@ use Filament\Infolists\Components\ImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Hugomyb\FilamentMediaAction\Actions\MediaAction;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Override;
@@ -40,6 +42,14 @@ class UnitLearningMaterialsRelationManager extends RelationManager
         return false;
     }
 
+    public static function getTabComponent(Model $ownerRecord, string $pageClass): Tab
+    {
+        return Tab::make('Learning Material')
+            ->badge($ownerRecord->learning_materials()->count())
+            ->badgeColor('info')
+            ->badgeTooltip('The number of learning materials in this unit')
+            ->icon(Phosphor::Play);
+    }
 
     #[Override]
     public function infolist(Schema $schema): Schema
@@ -147,7 +157,8 @@ class UnitLearningMaterialsRelationManager extends RelationManager
     {
         return $table
             ->headerActions([
-                CreateAction::make(),
+                CreateAction::make()
+                    ->label('New Learning Material'),
             ])
             ->description('Learning materials are resources that support the learning process within a unit. 
                 They can include documents, presentations, videos, and other educational content that enhance the understanding of the subject matter.')

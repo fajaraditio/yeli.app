@@ -13,9 +13,9 @@ class EditUnit extends EditRecord
     protected static string $resource = UnitResource::class;
 
     #[Override]
-    public function hasCombinedRelationManagerTabsWithContent(): bool
+    public function getRelationManagers(): array
     {
-        return true;
+        return [];
     }
 
     protected function getHeaderActions(): array
