@@ -17,7 +17,7 @@ class UnitInfolist
         return $schema
             ->components([
                 Section::make('Unit Information')
-                    ->description('Fill in the basic information for this learning unit.')
+                    ->description('Basic information for this learning unit.')
                     ->schema([
                         TextEntry::make('title')
                             ->label('Unit Title')
@@ -39,10 +39,9 @@ class UnitInfolist
 
                         TextEntry::make('description')
                             ->label('Description')
-                            ->placeholder('-')
-                            ->columnSpanFull(),
+                            ->placeholder('-'),
                     ])
-                    ->columns(3)
+                    ->columns(4)
                     ->columnSpanFull(),
             ]);
     }

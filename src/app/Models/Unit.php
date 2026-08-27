@@ -32,4 +32,9 @@ class Unit extends Model
     {
         return $this->belongsTo(Bloom::class);
     }
+
+    public function learning_materials(): HasMany
+    {
+        return $this->hasMany(UnitLearningMaterial::class);
+    }
 }
