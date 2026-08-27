@@ -4,14 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Override;
 
-class UnitLearningMaterial extends Model
+class UnitTaskSkillset extends Model
 {
     #[Override]
     protected static function booted()
     {
-        static::creating(function (UnitLearningMaterial $unit) {
+        static::creating(function (UnitTaskSkillset $unit) {
             $latest = static::max('order_number');
 
             $unit->order_number = $latest ? $latest + 1 : 1;
@@ -21,5 +22,10 @@ class UnitLearningMaterial extends Model
     public function unit(): BelongsTo
     {
         return $this->belongsTo(Unit::class);
+    }
+
+    public function task_skillset(): BelongsTo
+    {
+        return $this->belongsTo(TaskSkillset::class);
     }
 }

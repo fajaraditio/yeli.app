@@ -6,6 +6,7 @@ use App\Filament\Administrator\Resources\Units\Pages\CreateUnit;
 use App\Filament\Administrator\Resources\Units\Pages\EditUnit;
 use App\Filament\Administrator\Resources\Units\Pages\ListUnits;
 use App\Filament\Administrator\Resources\Units\Pages\ViewUnit;
+use App\Filament\Administrator\Resources\Units\RelationManagers\TaskSkillsetRelationManager;
 use App\Filament\Administrator\Resources\Units\RelationManagers\UnitLearningMaterialsRelationManager;
 use App\Filament\Administrator\Resources\Units\Schemas\UnitForm;
 use App\Filament\Administrator\Resources\Units\Schemas\UnitInfolist;
@@ -46,7 +47,8 @@ class UnitResource extends Resource
     public static function getRelations(): array
     {
         return [
-            UnitLearningMaterialsRelationManager::class
+            UnitLearningMaterialsRelationManager::class,
+            TaskSkillsetRelationManager::class,
         ];
     }
 

@@ -37,4 +37,9 @@ class Unit extends Model
     {
         return $this->hasMany(UnitLearningMaterial::class);
     }
+
+    public function task_skillsets(): HasMany
+    {
+        return $this->hasMany(UnitTaskSkillset::class);
+    }
 }
