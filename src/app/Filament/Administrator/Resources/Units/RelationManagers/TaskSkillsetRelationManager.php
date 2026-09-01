@@ -18,6 +18,8 @@ use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
+use Filament\Support\Colors\Color;
+use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -48,10 +50,10 @@ class TaskSkillsetRelationManager extends RelationManager
     {
         return $schema
             ->components([
-                Section::make('Task & Skillset')
+                Section::make('Task & Key Skill')
                     ->schema([
                         Select::make('task_skillset_id')
-                            ->label('Task & Skillset')
+                            ->label('Task & Key Skill')
                             ->prefixIcon(Phosphor::Tag)
                             ->options(fn() => static::getGroupedTaskSkillsetOptions())
                             ->searchable()
@@ -118,26 +120,19 @@ class TaskSkillsetRelationManager extends RelationManager
                     ->slideOver(),
             ])
             ->reorderable('order_number')
+            ->defaultGroup('task_skillset.task.name')
             ->columns([
                 TextColumn::make('order_number')
-                    ->label('#')
                     ->sortable(),
 
-                TextColumn::make('taskSkillset.task.name')
-                    ->label('Task')
+                TextColumn::make('task_skillset.skillset_name')
+                    ->label('Key Skill')
                     ->badge()
-                    ->color('gray'),
-
-                TextColumn::make('taskSkillset.skillset_name')
-                    ->label('Skillset')
-                    ->badge()
-                    ->color(fn($record) => $record->taskSkillset?->skillset_color ?? 'gray'),
+                    ->color(fn($record) => Color::hex($record->task_skillset?->skillset?->color)),
 
                 TextColumn::make('excerpt')
                     ->label('Excerpt')
-                    ->limit(50)
-                    ->placeholder('— no excerpt —')
-                    ->color('gray'),
+                    ->placeholder('No Excerpt'),
 
                 TextColumn::make('question')
                     ->label('Questions')
