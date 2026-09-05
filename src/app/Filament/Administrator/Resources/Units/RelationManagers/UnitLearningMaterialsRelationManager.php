@@ -141,12 +141,6 @@ class UnitLearningMaterialsRelationManager extends RelationManager
                             ->dehydrated()
                             ->helperText('Automatically detected from the uploaded file — not editable.')
                             ->prefixIcon(Phosphor::FileText),
-
-                        TextInput::make('order_number')
-                            ->label('Order')
-                            ->numeric()
-                            ->default(0)
-                            ->prefixIcon(Phosphor::SortAscending),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),

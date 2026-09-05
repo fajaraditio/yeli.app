@@ -3,23 +3,20 @@
 namespace App\Filament\Administrator\Resources\Units\RelationManagers;
 
 use App\Models\TaskSkillset;
+use App\Models\UnitTaskSkillset;
 use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Filament\Support\Colors\Color;
-use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
@@ -55,7 +52,11 @@ class TaskSkillsetRelationManager extends RelationManager
                         Select::make('task_skillset_id')
                             ->label('Task & Key Skill')
                             ->prefixIcon(Phosphor::Tag)
-                            ->options(fn() => static::getGroupedTaskSkillsetOptions())
+                            ->options(function (?Model $record, RelationManager $livewire): array {
+                                $unitId = $livewire->getOwnerRecord()->getKey();
+
+                                return static::getGroupedTaskSkillsetOptions($unitId, $record?->getKey());
+                            })
                             ->searchable()
                             ->required(),
                     ])
@@ -97,10 +98,16 @@ class TaskSkillsetRelationManager extends RelationManager
             ]);
     }
 
-    protected static function getGroupedTaskSkillsetOptions(): array
+    protected static function getGroupedTaskSkillsetOptions(?int $unitId = null, ?int $ignoreRecordId = null): array
     {
+        $usedTaskSkillsetIds = UnitTaskSkillset::query()
+            ->when($unitId, fn($query) => $query->where('unit_id', $unitId))
+            ->when($ignoreRecordId, fn($query) => $query->where('id', '!=', $ignoreRecordId))
+            ->pluck('task_skillset_id');
+
         return TaskSkillset::query()
             ->with('task')
+            ->whereNotIn('id', $usedTaskSkillsetIds)
             ->get()
             ->groupBy(fn(TaskSkillset $item): string => $item->task->name ?? 'Uncategorized')
             ->map(fn($group) => $group
