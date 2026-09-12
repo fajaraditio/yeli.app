@@ -3,6 +3,7 @@
 namespace App\Filament\Administrator\Resources\Lecturers\Schemas;
 
 use App\Constants\UserConstant;
+use App\Filament\Administrator\Resources\Classrooms\Pages\ListClassrooms;
 use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
@@ -24,13 +25,20 @@ class LecturerInfolist
                             ->label('Lecturer ID')
                             ->placeholder('—')
                             ->copyable(),
-
-                        TextEntry::make('classroom_name')
-                            ->label('Classroom')
-                            ->placeholder('—'),
                     ])
                     ->columns(3)
-                    ->columnSpanFull(),
+                    ->columnSpan(1),
+
+                Section::make('Assigned Classes')
+                    ->description('Classes this lecturer teaches. Lecturers can access these classes directly without further approval.')
+                    ->schema([
+                        TextEntry::make('classrooms.name')
+                            ->hiddenLabel()
+                            ->url(fn($state) => ListClassrooms::getUrl(['search' => $state]))
+                            ->bulleted()
+                            ->placeholder('No classes assigned yet'),
+                    ])
+                    ->columnSpan(1),
 
                 Section::make('Lecturer Account')
                     ->description('Login credentials linked to this lecturer.')
@@ -66,6 +74,7 @@ class LecturerInfolist
                     ->columns(2)
                     ->columnSpanFull()
                     ->collapsible(),
-            ]);
+            ])
+            ->columns(2);
     }
 }
