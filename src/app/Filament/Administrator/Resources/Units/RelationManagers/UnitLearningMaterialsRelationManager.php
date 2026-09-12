@@ -221,7 +221,7 @@ class UnitLearningMaterialsRelationManager extends RelationManager
                     ->hidden(fn($record) => $record->type === UnitLearningMaterialConstant::Type_Ppt),
 
                 DeleteAction::make()
-                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Plus)
+                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Trash)
                     ->tooltip(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? 'You cannot delete learning material while unit status is published' : '')
                     ->disabled(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
             ]);

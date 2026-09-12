@@ -2,6 +2,7 @@
 
 namespace App\Filament\Administrator\Resources\Units\RelationManagers;
 
+use App\Constants\UnitConstant;
 use App\Models\TaskSkillset;
 use App\Models\UnitTaskSkillset;
 use Filafly\Icons\Phosphor\Enums\Phosphor;
@@ -124,7 +125,10 @@ class TaskSkillsetRelationManager extends RelationManager
             ->modelLabel(self::$title)
             ->headerActions([
                 CreateAction::make()
-                    ->slideOver(),
+                    ->slideOver()
+                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Plus)
+                    ->tooltip(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? 'You cannot add task activity while unit status is published' : '')
+                    ->disabled(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
             ])
             ->reorderable('order_number')
             ->defaultGroup('task_skillset.task.name')
@@ -154,7 +158,10 @@ class TaskSkillsetRelationManager extends RelationManager
             ])
             ->recordActions([
                 EditAction::make()
-                    ->slideOver(),
+                    ->slideOver()
+                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Pencil)
+                    ->tooltip(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? 'You cannot edit task activity while unit status is published' : '')
+                    ->disabled(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
