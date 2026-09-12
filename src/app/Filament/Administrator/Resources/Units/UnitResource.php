@@ -2,6 +2,7 @@
 
 namespace App\Filament\Administrator\Resources\Units;
 
+use App\Constants\UnitConstant;
 use App\Filament\Administrator\Resources\Units\Pages\CreateUnit;
 use App\Filament\Administrator\Resources\Units\Pages\EditUnit;
 use App\Filament\Administrator\Resources\Units\Pages\ListUnits;
@@ -16,8 +17,9 @@ use BackedEnum;
 use Filafly\Icons\Phosphor\Enums\Phosphor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Model;
+use Override;
 
 class UnitResource extends Resource
 {
@@ -50,6 +52,12 @@ class UnitResource extends Resource
             UnitLearningMaterialsRelationManager::class,
             TaskSkillsetRelationManager::class,
         ];
+    }
+
+    #[Override]
+    public static function canEdit(Model $record): bool
+    {
+        return $record->status !== UnitConstant::Status_Published;
     }
 
     public static function getPages(): array

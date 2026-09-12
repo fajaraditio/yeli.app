@@ -2,6 +2,7 @@
 
 namespace App\Filament\Administrator\Resources\Units\RelationManagers;
 
+use App\Constants\UnitConstant;
 use App\Constants\UnitLearningMaterialConstant;
 use App\Filament\Administrator\Resources\Units\UnitResource;
 use App\Models\UnitLearningMaterial;
@@ -152,7 +153,10 @@ class UnitLearningMaterialsRelationManager extends RelationManager
         return $table
             ->headerActions([
                 CreateAction::make()
-                    ->label('New Learning Material'),
+                    ->label('New Learning Material')
+                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Plus)
+                    ->tooltip(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? 'You cannot add new learning material while unit status is published' : '')
+                    ->disabled(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
             ])
             ->description('Learning materials are resources that support the learning process within a unit. 
                 They can include documents, presentations, videos, and other educational content that enhance the understanding of the subject matter.')
@@ -200,7 +204,8 @@ class UnitLearningMaterialsRelationManager extends RelationManager
                 ViewAction::make()
                     ->modalHeading('View File')
                     ->extraModalFooterActions([
-                        DeleteAction::make(),
+                        DeleteAction::make()
+                            ->hidden(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
                     ])
                     ->visible(fn($record) => $record->type === UnitLearningMaterialConstant::Type_Ppt),
 
@@ -210,11 +215,15 @@ class UnitLearningMaterialsRelationManager extends RelationManager
                     ->media(fn($record) => asset('storage/' . $record->file_path))
                     ->autoplay(fn($record, $mediaType) => $mediaType === 'video')
                     ->extraModalFooterActions([
-                        DeleteAction::make(),
+                        DeleteAction::make()
+                            ->hidden(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
                     ])
                     ->hidden(fn($record) => $record->type === UnitLearningMaterialConstant::Type_Ppt),
 
-                DeleteAction::make(),
+                DeleteAction::make()
+                    ->icon(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? Phosphor::Prohibit : Phosphor::Plus)
+                    ->tooltip(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published ? 'You cannot delete learning material while unit status is published' : '')
+                    ->disabled(fn() => $this->getOwnerRecord()->status === UnitConstant::Status_Published),
             ]);
     }
 }
