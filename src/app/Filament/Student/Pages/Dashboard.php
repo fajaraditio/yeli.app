@@ -2,6 +2,7 @@
 
 namespace App\Filament\Student\Pages;
 
+use App\Filament\Student\Widgets\LearningUnitsWidget;
 use App\Livewire\CheckAccountStatusWidget;
 use BackedEnum;
 use Filafly\Icons\Phosphor\Enums\Phosphor;
@@ -23,6 +24,8 @@ class Dashboard extends BaseDashboard
     {
         return [
             CheckAccountStatusWidget::class,
+
+            LearningUnitsWidget::class,
         ];
     }
 }
