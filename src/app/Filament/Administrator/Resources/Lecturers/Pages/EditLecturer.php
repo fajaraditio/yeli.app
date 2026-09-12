@@ -37,10 +37,6 @@ class EditLecturer extends EditRecord
     {
         $user = $data['user'];
 
-        $classroom  = Classroom::find($data['classroom_id']);
-
-        $data['classroom_name'] = $classroom->name;
-
         unset($data['user']);
         unset($user['password_confirmation']);
 

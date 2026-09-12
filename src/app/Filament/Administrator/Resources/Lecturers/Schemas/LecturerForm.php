@@ -3,6 +3,7 @@
 namespace App\Filament\Administrator\Resources\Lecturers\Schemas;
 
 use Filafly\Icons\Phosphor\Enums\Phosphor;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
@@ -29,6 +30,18 @@ class LecturerForm
                             ->prefixIcon(Phosphor::IdentificationBadge),
                     ])
                     ->columns(3)
+                    ->columnSpanFull(),
+
+                Section::make('Assigned Classes')
+                    ->description('Select the classes this lecturer will teach. Lecturers can access these classes directly without further approval.')
+                    ->schema([
+                        CheckboxList::make('classrooms')
+                            ->relationship('classrooms', 'name')
+                            ->hiddenLabel()
+                            ->columns(4)
+                            ->searchable()
+                            ->bulkToggleable(),
+                    ])
                     ->columnSpanFull(),
 
                 Section::make('Lecturer Account Login')
